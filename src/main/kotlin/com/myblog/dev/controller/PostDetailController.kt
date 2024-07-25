@@ -28,6 +28,12 @@ class PostDetailResponse(
     val postId: String,
     val title: String,
     val content: String,
+    val commentList: List<CommentDetailDesponse>,
+)
+
+class CommentDetailDesponse(
+    val content: String,
+    val userId: String,
 )
 
 @Service
@@ -38,7 +44,13 @@ class PostDetailService {
         return PostDetailResponse(
             postId = "1",
             title = "hoge",
-            content = "content"
+            content = "content",
+            commentList = listOf(
+                CommentDetailDesponse(
+                    userId = "111",
+                    content = "comment content"
+                )
+            )
         )
     }
 }

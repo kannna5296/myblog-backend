@@ -9,30 +9,29 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/post")
-class PostRegisterController(
-    private val service: PostRegisterService,
+class CommentRegisterController(
+    private val service: CommentRegisterService,
 ) {
 
-    @PostMapping
-    fun post(@RequestBody form: PostRegisterForm) : ResponseEntity<PostRegisterResponse>  {
-        val postId = service.execute()
-        val result = PostRegisterResponse(postId)
+    @PostMapping("/{id}/comment")
+    fun post(@RequestBody form: CommentRegisterForm) : ResponseEntity<CommentRegisterResponse>  {
+        val commentId = service.execute()
+        val result = CommentRegisterResponse(commentId)
         return ResponseEntity.ok(result)
     }
 }
 
-class PostRegisterForm(
-    val title: String,
+class CommentRegisterForm(
     val content: String,
     val userId: String,
 )
 
-class PostRegisterResponse(
-    val postId: String,
+class CommentRegisterResponse(
+    val commentId: String,
 )
 
 @Service
-class PostRegisterService {
+class CommentRegisterService {
 
     fun execute() : String {
         //TODO DBに登録
