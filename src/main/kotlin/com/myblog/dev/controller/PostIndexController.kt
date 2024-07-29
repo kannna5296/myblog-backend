@@ -17,7 +17,7 @@ class PostIndexController(
 ) {
 
     @GetMapping
-    fun index(@PathVariable id: String) : ResponseEntity<PostIndexResponse>  {
+    fun index() : ResponseEntity<PostIndexResponse>  {
         val result = service.execute()
         return ResponseEntity.ok(result)
     }
