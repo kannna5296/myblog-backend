@@ -1,4 +1,5 @@
 import com.myblog.dev.auth.JwtUtil
+import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -15,9 +16,8 @@ class AuthController(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    @CrossOrigin//(origins = ["http://localhost:5173", "http://127.0.0.1:5173"])
     @PostMapping("/login")
-    fun login(@RequestBody authRequest: AuthRequest): AuthResponse {
+    fun login(@RequestBody authRequest: AuthRequest): ResponseEntity<AuthResponse> {
         val authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(authRequest.email, authRequest.password)
         )
@@ -25,11 +25,11 @@ class AuthController(
         val userDetails: UserDetails = userDetailsService.loadUserByUsername(authRequest.email)
         val jwt = jwtUtil.generateToken(userDetails)
 
-        return AuthResponse(jwt)
+        return ResponseEntity.ok(AuthResponse(jwt))
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody authRequest: AuthRequest): AuthResponse {
+    fun register(@RequestBody authRequest: AuthRequest): ResponseEntity<AuthResponse> {
         // ユーザー登録処理を実装。ユーザー情報を保存した後、JWTを返す。
 
         val user = User(
@@ -41,7 +41,7 @@ class AuthController(
         // ユーザー保存処理（リポジトリなどを利用）
 
         val jwt = jwtUtil.generateToken(userDetailsService.loadUserByUsername(user.username))
-        return AuthResponse(jwt)
+        return ResponseEntity.ok(AuthResponse(jwt))
     }
 }
 

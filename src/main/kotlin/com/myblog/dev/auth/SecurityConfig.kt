@@ -13,19 +13,24 @@ import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsConfigurationSource
 
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig{
 
     @Autowired
     lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
+
+    @Autowired
+    lateinit var corsConfig: CorsConfig
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { csrf -> csrf.ignoringRequestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS) }
+            .cors { cors -> cors.configurationSource(corsConfig) }
          .authorizeHttpRequests { auth ->
             auth
               .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()

@@ -12,19 +12,6 @@ class WebMvcConfig(
     private val filter: JwtAuthenticationFilter,
 ) : WebMvcConfigurer {
 
-    @Bean
-    fun corsConfigurer(): WebMvcConfigurer {
-        return object : WebMvcConfigurer {
-            override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**")
-                    .allowedOriginPatterns("http://127.0.0.1:5173", "http://localhost:5173") //TODO 環境ごとにいじれるようにする
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                    .allowedHeaders("*")
-                    .allowCredentials(true)
-            }
-        }
-    }
-
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(filter).excludePathPatterns(AUTHLESS_PATH.toList())
     }
