@@ -4,6 +4,7 @@ import com.myblog.dev.auth.JwtUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -27,6 +28,12 @@ class AuthController(
 
         val userDetails: UserDetails = userDetailsService.loadUserByUsername(authRequest.email)
         val jwt = jwtUtil.generateToken(userDetails)
+
+        // ステートレスな設計にしてるのでここで設定するとステートフルになっちゃう。都度Frontから指定してきてもらう必要あり。
+        // どっちがいいんやろな〜〜
+        SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken(
+            userDetails, null, userDetails.authorities
+        )
 
         return ResponseEntity.ok(AuthResponse(jwt))
     }
