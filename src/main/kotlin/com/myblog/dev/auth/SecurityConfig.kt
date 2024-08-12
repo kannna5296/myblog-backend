@@ -21,9 +21,6 @@ import org.springframework.web.cors.CorsConfigurationSource
 class SecurityConfig{
 
     @Autowired
-    lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
-
-    @Autowired
     lateinit var corsConfig: CorsConfig
 
     @Bean

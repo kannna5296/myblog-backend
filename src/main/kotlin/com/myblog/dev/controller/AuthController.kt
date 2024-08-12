@@ -1,3 +1,5 @@
+package com.myblog.dev.controller
+
 import com.myblog.dev.auth.JwtUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
