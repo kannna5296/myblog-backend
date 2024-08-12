@@ -1,4 +1,4 @@
-package com.myblog.dev
+package com.myblog.dev.auth
 
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

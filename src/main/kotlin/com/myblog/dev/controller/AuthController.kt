@@ -1,4 +1,4 @@
-import com.myblog.dev.JwtUtil
+import com.myblog.dev.auth.JwtUtil
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
@@ -15,6 +15,7 @@ class AuthController(
     private val passwordEncoder: PasswordEncoder
 ) {
 
+    @CrossOrigin//(origins = ["http://localhost:5173", "http://127.0.0.1:5173"])
     @PostMapping("/login")
     fun login(@RequestBody authRequest: AuthRequest): AuthResponse {
         val authentication = authenticationManager.authenticate(

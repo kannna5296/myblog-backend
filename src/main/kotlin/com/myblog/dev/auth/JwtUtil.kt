@@ -1,4 +1,4 @@
-package com.myblog.dev
+package com.myblog.dev.auth
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts

@@ -4,3 +4,6 @@ server:
 logging:
   level:
     root: DEBUG
+spring:
+  mvc:
+    static-path-pattern: static/**

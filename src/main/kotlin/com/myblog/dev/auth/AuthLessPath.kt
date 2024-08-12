@@ -1,4 +1,4 @@
-package com.myblog.dev
+package com.myblog.dev.auth
 
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.security.web.util.matcher.OrRequestMatcher
@@ -6,7 +6,7 @@ import org.springframework.security.web.util.matcher.OrRequestMatcher
 class AuthLessPath {
 
     companion object {
-        val AUTHLESS_PATH = setOf("/auth/login", "/auth/register")
+        val AUTHLESS_PATH = setOf("/auth/**")
         val AUTHLESS_PATH_MATCHERS = OrRequestMatcher(AUTHLESS_PATH.map { AntPathRequestMatcher(it) })
     }
 }
