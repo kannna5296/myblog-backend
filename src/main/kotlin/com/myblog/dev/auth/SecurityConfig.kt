@@ -13,6 +13,7 @@ import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfigurationSource
 
 
@@ -22,6 +23,9 @@ class SecurityConfig{
 
     @Autowired
     lateinit var corsConfig: CorsConfig
+
+    @Autowired
+    lateinit var filter: JwtAuthenticationFilter
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -33,9 +37,11 @@ class SecurityConfig{
               .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()
                 .anyRequest().authenticated()
         }
+         // ステートレスにするならsessionいらないんだっけ。。。
                 .sessionManagement { session ->
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 }
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 

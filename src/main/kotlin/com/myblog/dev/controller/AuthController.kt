@@ -31,9 +31,7 @@ class AuthController(
 
         // ステートレスな設計にしてるのでここで設定するとステートフルになっちゃう。都度Frontから指定してきてもらう必要あり。
         // どっちがいいんやろな〜〜
-        SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken(
-            userDetails, null, userDetails.authorities
-        )
+        SecurityContextHolder.getContext().authentication = authentication
 
         return ResponseEntity.ok(AuthResponse(jwt))
     }
