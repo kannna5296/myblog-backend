@@ -43,7 +43,7 @@ class AuthController(
         val user = User(
             username = authRequest.email,
             password = passwordEncoder.encode(authRequest.password),
-            roles = listOf("ROLE_USER")
+            roles = listOf()
         )
 
         // ユーザー保存処理（リポジトリなどを利用）

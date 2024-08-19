@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: myblogdb
+    environment:
+      MYSQL_ROOT_PASSWORD: "Password123"
+      MYSQL_DATABASE: "myblog"
+      MYSQL_USER: "myblogadmin"
+      MYSQL_PASSWORD: "Password123"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d  # 初期化用SQLスクリプトを配置するディレクトリ
+    networks:
+      - mysql-network
+
+networks:
+  mysql-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+    driver_opts:
+      type: 'tmpfs'
+      device: 'tmpfs'
