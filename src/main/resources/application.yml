@@ -5,4 +5,4 @@ logging:
   level:
     root: DEBUG
 auth:
-  secretKey: hoge
+  secretKey: hogehogehogehogehogehogehogehogehogehogehoge #Devにあげるときはちゃんと作る
