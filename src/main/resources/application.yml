@@ -6,3 +6,9 @@ logging:
     root: DEBUG
 auth:
   secretKey: hogehogehogehogehogehogehogehogehogehogehoge #Devにあげるときはちゃんと作る
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/myblog
+    username: myblogadmin #Devにあげるときはちゃんと作る
+    password: Password123 #Devにあげるときはちゃんと作る
+    driver-class-name: com.mysql.cj.jdbc.Driver

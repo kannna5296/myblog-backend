@@ -27,10 +27,11 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5") // JSON processing (Jackson) のため
 
 // 	implementation("org.springframework.boot:spring-boot-starter-data-jooq")
-// 	implementation("mysql:mysql-connector-java")
+    runtimeOnly("com.mysql:mysql-connector-j")
 // 	implementation("org.jooq:jooq")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")

@@ -1,6 +1,7 @@
 package com.myblog.dev.controller
 
 import com.myblog.dev.auth.JwtUtil
+import com.myblog.dev.service.UserRegisterService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -19,11 +20,12 @@ class AuthController(
     private val authenticationManager: AuthenticationManager,
     private val userDetailsService: UserDetailsService,
     private val jwtUtil: JwtUtil,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val userRegisterService: UserRegisterService,
 ) {
 
     @PostMapping("/login")
-    fun login(@RequestBody authRequest: AuthRequest): ResponseEntity<AuthResponse> {
+    fun login(@RequestBody authRequest: LoginRequest): ResponseEntity<LoginResponse> {
         val authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(authRequest.email, authRequest.password)
         )
@@ -35,33 +37,42 @@ class AuthController(
         // どっちがいいんやろな〜〜
         SecurityContextHolder.getContext().authentication = authentication
 
-        return ResponseEntity.ok(AuthResponse(jwt))
+        return ResponseEntity.ok(LoginResponse(jwt))
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody authRequest: AuthRequest): ResponseEntity<AuthResponse> {
+    fun register(@RequestBody request: RegisterUserRequest): ResponseEntity<RegisterUserResponse> {
         // ユーザー登録処理を実装。ユーザー情報を保存した後、JWTを返す。
 
         val user = User(
-            username = authRequest.email,
-            password = passwordEncoder.encode(authRequest.password),
+            username = request.email,
+            password = passwordEncoder.encode(request.password),
             roles = listOf()
         )
-
-        // ユーザー保存処理（リポジトリなどを利用）
-
         val jwt = jwtUtil.generateToken(userDetailsService.loadUserByUsername(user.username))
-        return ResponseEntity.ok(AuthResponse(jwt))
+
+        userRegisterService.register(form = request)
+        return ResponseEntity.ok(RegisterUserResponse(jwt))
     }
 }
 
-data class AuthRequest(
+data class LoginRequest(
     val email: String,
     val password: String
 )
 
-data class AuthResponse(
+data class LoginResponse(
     val jwt: String
+)
+
+data class RegisterUserRequest(
+    val username: String,
+    val email: String,
+    val password: String
+)
+
+data class RegisterUserResponse(
+    val userId: String,
 )
 
 class User(
