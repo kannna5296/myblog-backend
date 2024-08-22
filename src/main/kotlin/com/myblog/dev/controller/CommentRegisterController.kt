@@ -14,7 +14,7 @@ class CommentRegisterController(
 ) {
 
     @PostMapping("/{id}/comment")
-    fun post(@RequestBody form: CommentRegisterForm) : ResponseEntity<CommentRegisterResponse>  {
+    fun post(@RequestBody form: CommentRegisterForm): ResponseEntity<CommentRegisterResponse> {
         val commentId = service.execute()
         val result = CommentRegisterResponse(commentId)
         return ResponseEntity.ok(result)
@@ -33,8 +33,8 @@ class CommentRegisterResponse(
 @Service
 class CommentRegisterService {
 
-    fun execute() : String {
-        //TODO DBに登録
+    fun execute(): String {
+        // TODO DBに登録
         return "1"
     }
 }

@@ -1,7 +1,7 @@
-package com.myblog.dev
+package com.myblog.dev.auth
 
-//@Entity
-//data class User(
+// @Entity
+// data class User(
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    val id: Long = 0,
@@ -10,4 +10,4 @@ package com.myblog.dev
 //    val email: String,
 //    val password: String,
 //    val roles: String // ROLE_USER, ROLE_ADMINなど
-//)
+// )

@@ -14,7 +14,7 @@ class PostRegisterController(
 ) {
 
     @PostMapping
-    fun post(@RequestBody form: PostRegisterForm) : ResponseEntity<PostRegisterResponse>  {
+    fun post(@RequestBody form: PostRegisterForm): ResponseEntity<PostRegisterResponse> {
         val postId = service.execute()
         val result = PostRegisterResponse(postId)
         return ResponseEntity.ok(result)
@@ -34,8 +34,8 @@ class PostRegisterResponse(
 @Service
 class PostRegisterService {
 
-    fun execute() : String {
-        //TODO DBに登録
+    fun execute(): String {
+        // TODO DBに登録
         return "1"
     }
 }

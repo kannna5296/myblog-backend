@@ -14,12 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.web.cors.CorsConfigurationSource
-
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig{
+class SecurityConfig {
 
     @Autowired
     lateinit var corsConfig: CorsConfig
@@ -32,15 +30,15 @@ class SecurityConfig{
         http
             .csrf { csrf -> csrf.ignoringRequestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS) }
             .cors { cors -> cors.configurationSource(corsConfig) }
-         .authorizeHttpRequests { auth ->
-            auth
-              .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()
-                .anyRequest().authenticated()
-        }
-         // ステートレスにするならsessionいらないんだっけ。。。
-                .sessionManagement { session ->
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                }
+            .authorizeHttpRequests { auth ->
+                auth
+                    .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()
+                    .anyRequest().authenticated()
+            }
+            // ステートレスにするならsessionいらないんだっけ。。。
+            .sessionManagement { session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
