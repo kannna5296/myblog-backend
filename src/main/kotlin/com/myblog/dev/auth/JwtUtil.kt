@@ -30,10 +30,9 @@ class JwtUtil(
     }
 
     private fun extractAllClaims(token: String): Claims {
-        return Jwts.parser()
-            .setSigningKey(secretKey)
-            .parseClaimsJws(token)
-            .body
+        val parser =  Jwts.parserBuilder()
+            .setSigningKey(secretKey.toByteArray()).build()
+        return parser.parseClaimsJws(token).body
     }
 
     private fun isTokenExpired(token: String): Boolean {

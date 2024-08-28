@@ -5,7 +5,12 @@ logging:
   level:
     root: DEBUG
 auth:
-  secretKey: hogehogehogehogehogehogehogehogehogehogehoge #Devにあげるときはちゃんと作る
+  secretKey: kDaepqh5Ezo7DqjJvXUEP9m2/Ufv3y789JOaZ2Jt2fs= #Dev以上で使うなよ
+  #    // HS256アルゴリズムに適したSecretKeyを生成
+  #    val secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256)
+  #    // 文字列形式のキーを取得
+  #    val base64EncodedKey = Base64.getEncoder().encodeToString(secretKey.encoded)
+  #    println("Generated Secret Key: $base64EncodedKey")
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/myblog
