@@ -1,7 +1,7 @@
 package com.myblog.dev.controller
 
+import com.myblog.dev.service.PostRegisterService
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,8 +15,7 @@ class PostRegisterController(
 
     @PostMapping
     fun post(@RequestBody form: PostRegisterForm): ResponseEntity<PostRegisterResponse> {
-        val postId = service.execute()
-        val result = PostRegisterResponse(postId)
+        val result = service.execute(1, form)
         return ResponseEntity.ok(result)
     }
 }
@@ -30,12 +29,3 @@ class PostRegisterForm(
 class PostRegisterResponse(
     val postId: String,
 )
-
-@Service
-class PostRegisterService {
-
-    fun execute(): String {
-        // TODO DBに登録
-        return "1"
-    }
-}
