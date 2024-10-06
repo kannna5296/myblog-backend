@@ -20,16 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig {
 
     @Autowired
-    lateinit var corsConfig: CorsConfig
-
-    @Autowired
-    lateinit var filter: JwtAuthenticationFilter
+    lateinit var jwtFilter: JwtAuthenticationFilter
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { csrf -> csrf.ignoringRequestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS) }
-            .cors { cors -> cors.configurationSource(corsConfig) }
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()
@@ -39,10 +34,10 @@ class SecurityConfig {
             .sessionManagement { session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
+            .myCsrfConfig()
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
-
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
