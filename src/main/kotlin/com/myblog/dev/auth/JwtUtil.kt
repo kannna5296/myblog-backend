@@ -30,7 +30,7 @@ class JwtUtil(
     }
 
     private fun extractAllClaims(token: String): Claims {
-        val parser =  Jwts.parserBuilder()
+        val parser = Jwts.parserBuilder()
             .setSigningKey(secretKey.toByteArray()).build()
         return parser.parseClaimsJws(token).body
     }
