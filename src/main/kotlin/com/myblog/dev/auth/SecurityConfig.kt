@@ -14,15 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
-import org.springframework.security.web.csrf.CsrfTokenRepository
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig {
-
-    @Autowired
-    lateinit var corsConfig: CorsConfig
 
     @Autowired
     lateinit var jwtFilter: JwtAuthenticationFilter
@@ -30,7 +25,6 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { cors -> cors.configurationSource(corsConfig) }
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers(AuthLessPath.AUTHLESS_PATH_MATCHERS).permitAll()

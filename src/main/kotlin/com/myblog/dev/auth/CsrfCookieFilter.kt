@@ -3,7 +3,6 @@ package com.myblog.dev.auth
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.boot.web.server.Cookie.SameSite
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
@@ -25,20 +24,20 @@ fun HttpSecurity.myCsrfConfig(): HttpSecurity =
         // TODO 例外処理
     }.addFilterAfter(CsrfCookieFilter(), BasicAuthenticationFilter::class.java)
 
-
 private fun cookieCsrfTokenRepository(): CookieCsrfTokenRepository {
-    val repo  = CookieCsrfTokenRepository.withHttpOnlyFalse()
+    val repo = CookieCsrfTokenRepository.withHttpOnlyFalse()
 
-    repo.setCookieCustomizer { customizer -> customizer
-        .domain("localhost")
-        .path("/")
-        .sameSite("None")
-//        .secure(true)
+    repo.setCookieCustomizer { customizer ->
+        customizer
+            .domain("localhost")
+            .path("/")
+            .sameSite("None")
+        // .secure(true)
     }
     return repo
 }
 
-private class MyHandler: CsrfTokenRequestAttributeHandler() {
+private class MyHandler : CsrfTokenRequestAttributeHandler() {
     private val de = XorCsrfTokenRequestAttributeHandler()
     override fun handle(
         request: HttpServletRequest,
@@ -52,7 +51,7 @@ private class MyHandler: CsrfTokenRequestAttributeHandler() {
         return if (StringUtils.hasText(request.getHeader(csrfToken.headerName))) {
             super.resolveCsrfTokenValue(request, csrfToken)
         } else {
-            runCatching { de.resolveCsrfTokenValue(request,csrfToken) }.getOrNull()
+            runCatching { de.resolveCsrfTokenValue(request, csrfToken) }.getOrNull()
         }
     }
 }
