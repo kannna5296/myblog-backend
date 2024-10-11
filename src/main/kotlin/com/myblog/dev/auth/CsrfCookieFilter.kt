@@ -1,6 +1,7 @@
 package com.myblog.dev.auth
 
 import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -11,9 +12,9 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler
 import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler
 import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
+import java.time.Duration
 import java.util.function.Supplier
-import kotlin.String
-import kotlin.runCatching
+
 
 fun HttpSecurity.myCsrfConfig(): HttpSecurity =
     this.csrf {
@@ -29,10 +30,8 @@ private fun cookieCsrfTokenRepository(): CookieCsrfTokenRepository {
 
     repo.setCookieCustomizer { customizer ->
         customizer
-            .domain("localhost")
-            .path("/")
-            .sameSite("None")
-        // .secure(true)
+            .path("/api")
+            .maxAge(Duration.ofHours(1))
     }
     return repo
 }
@@ -63,9 +62,10 @@ private class CsrfCookieFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        // これやるだけでSet Cookieされる
-        val csrf = request.getAttribute(CsrfToken::class.java.name) as CsrfToken
-        val token = csrf.token
+        val csrfToken = request.getAttribute("_csrf") as CsrfToken
+        // Render the token value to a cookie by causing the deferred token to be loaded
+        csrfToken.token
+
         filterChain.doFilter(request, response)
     }
 }

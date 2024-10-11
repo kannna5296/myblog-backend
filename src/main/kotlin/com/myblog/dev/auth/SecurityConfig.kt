@@ -32,7 +32,7 @@ class SecurityConfig {
             }
             // ステートレスにするならsessionいらないんだっけ。。。
             .sessionManagement { session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                session.maximumSessions(1).sessionRegistry(SessionRegistryImpl())
             }
             .myCsrfConfig()
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
