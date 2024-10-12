@@ -1,7 +1,6 @@
 package com.myblog.dev.auth
 
 import jakarta.servlet.FilterChain
-import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -14,7 +13,6 @@ import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.time.Duration
 import java.util.function.Supplier
-
 
 fun HttpSecurity.myCsrfConfig(): HttpSecurity =
     this.csrf {
@@ -30,7 +28,7 @@ private fun cookieCsrfTokenRepository(): CookieCsrfTokenRepository {
 
     repo.setCookieCustomizer { customizer ->
         customizer
-            .path("/") //[/api]とかにするとWebページ「Hoge.com/api/**」でしかcookie扱えない
+            .path("/") // [/api]とかにするとWebページ「Hoge.com/api/**」でしかcookie扱えない
             .maxAge(Duration.ofHours(1))
     }
     return repo
