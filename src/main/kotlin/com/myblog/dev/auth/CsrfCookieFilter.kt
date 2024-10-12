@@ -30,7 +30,7 @@ private fun cookieCsrfTokenRepository(): CookieCsrfTokenRepository {
 
     repo.setCookieCustomizer { customizer ->
         customizer
-            .path("/api")
+            .path("/") //[/api]とかにするとWebページ「Hoge.com/api/**」でしかcookie扱えない
             .maxAge(Duration.ofHours(1))
     }
     return repo
