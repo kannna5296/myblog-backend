@@ -14,6 +14,9 @@ import org.springframework.web.filter.OncePerRequestFilter
 import java.time.Duration
 import java.util.function.Supplier
 
+//元ネタはここ
+//https://spring.pleiades.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa
+
 fun HttpSecurity.myCsrfConfig(): HttpSecurity =
     this.csrf {
         it
