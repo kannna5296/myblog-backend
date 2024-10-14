@@ -23,6 +23,15 @@ class PostRepository(private val dsl: DSLContext) {
         return result?.getValue(USER.ID)!!
     }
 
+    @Transactional
+    fun update(postId: Long, userId: Long, title: String, content: String) {
+        dsl.update(POST)
+            .set(POST.TITLE, title)
+            .set(POST.CONTENT, content)
+            .where(POST.ID.eq(postId))
+            .execute()
+    }
+
     fun search(userId: Long): List<PostIndexResponse> {
         val result = dsl.select(
             POST.ID,
