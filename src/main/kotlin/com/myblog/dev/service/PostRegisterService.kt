@@ -12,9 +12,9 @@ class PostRegisterService(
 ) {
 
     @Transactional
-    fun execute(userId: Long, form: PostRegisterForm): PostRegisterResponse {
+    fun execute(form: PostRegisterForm): PostRegisterResponse {
         val insertedId = postRepository.insert(
-            userId = userId,
+            userId = form.userId.toLong(),
             title = form.title,
             content = form.content
         )

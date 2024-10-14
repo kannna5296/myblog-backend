@@ -15,7 +15,7 @@ class PostRegisterController(
 
     @PostMapping
     fun post(@RequestBody form: PostRegisterForm): ResponseEntity<PostRegisterResponse> {
-        val result = service.execute(1, form)
+        val result = service.execute(form)
         return ResponseEntity.ok(result)
     }
 }
