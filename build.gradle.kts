@@ -45,7 +45,6 @@ dependencies {
     jooqGenerator("jakarta.xml.bind:jakarta.xml.bind-api:4.0.0")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
-
 }
 
 kotlin {
