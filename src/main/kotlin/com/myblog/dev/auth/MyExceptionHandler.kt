@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 
 
 @ControllerAdvice
-class ExceptionHandler {
+class MyExceptionHandler {
 
     @ExceptionHandler
     fun handleUnAuthorizedException(ex: UnAuthorizedException): ResponseEntity<String> {
