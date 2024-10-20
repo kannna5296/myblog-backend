@@ -29,13 +29,13 @@ class JwtAuthenticationFilter(
         val authorizationHeader = request.getHeader("Authorization")
         if (authorizationHeader.isNullOrBlank()) {
             println("Authorizationヘッダなし")
-            throw Exception()
+            throw UnAuthorizedException()
         }
         val jwt = if (authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader.substring(7)
         } else {
             println("Authorizationヘッダの形式が違う")
-            throw Exception()
+            throw UnAuthorizedException()
         }
         val username = jwtUtil.extractUsername(jwt)
 
@@ -44,7 +44,7 @@ class JwtAuthenticationFilter(
 
         if (!jwtUtil.validateToken(jwt, userDetails)) {
             println("トークンが有効ではない")
-            throw Exception()
+            throw UnAuthorizedException()
         }
 
         val authentication = UsernamePasswordAuthenticationToken(
