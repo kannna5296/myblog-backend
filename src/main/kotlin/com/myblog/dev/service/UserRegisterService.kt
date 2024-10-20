@@ -17,7 +17,6 @@ class UserRegisterService(
             username = form.username,
             email = form.email,
             password = form.password,
-            roles = "user" // TODO 一旦固定
         )
         return RegisterUserResponse(userId = insertedId.toString())
     }
