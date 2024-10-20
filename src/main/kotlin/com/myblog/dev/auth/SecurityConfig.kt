@@ -48,12 +48,6 @@ class SecurityConfig {
         return BCryptPasswordEncoder()
     }
 
-//    @Bean
-//    fun authenticationManager(http: HttpSecurity): AuthenticationManager {
-//        return http.getSharedObject(AuthenticationManagerBuilder::class.java)
-//            .build()
-//    }
-
     @Bean
     fun sessionRegistry(): SessionRegistry {
         return SessionRegistryImpl()
