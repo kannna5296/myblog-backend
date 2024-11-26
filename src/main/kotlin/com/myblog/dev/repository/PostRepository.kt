@@ -9,6 +9,7 @@ import com.myblog.dev.controller.PostIndexResponse
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.time.ZoneId
 
 @Repository
 class PostRepository(private val dsl: DSLContext) {
@@ -36,11 +37,13 @@ class PostRepository(private val dsl: DSLContext) {
         val result = dsl.select(
             POST.ID,
             POST.TITLE,
+            POST.CREATED_AT,
         ).from(POST).where(POST.USER_ID.eq(userId)).fetch()
         return result.map {
             PostIndexResponse(
                 postId = it.getValue(POST.ID).toString(),
                 title = it.getValue(POST.TITLE)!!,
+                createdAt = it.getValue(POST.CREATED_AT)?.atZone(ZoneId.systemDefault())!!,
             )
         }
     }
