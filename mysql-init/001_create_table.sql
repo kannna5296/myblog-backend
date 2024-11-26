@@ -28,3 +28,20 @@ CREATE TABLE comment (
 );
 
 INSERT INTO user (username, email, password) VALUES (N'テストユーザ', 'admin@example.com', '$2a$10$L9A5chddB8TH4mhneAUfEe5kuLGc2wGLKVIqfJew.KpU9F5MZ/oCW');
+
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿', N'テスト投稿です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿2', N'テスト投稿2です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿3', N'テスト投稿3です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿4', N'テスト投稿4です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿5', N'テスト投稿5です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿6', N'テスト投稿6です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿7', N'テスト投稿7です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿8', N'テスト投稿8です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿9', N'テスト投稿9です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿10', N'テスト投稿10です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿11', N'テスト投稿11です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿12', N'テスト投稿12です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿13', N'テスト投稿13です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿14', N'テスト投稿14です。');
+INSERT INTO post (user_id, title, content) VALUES (1, N'テスト投稿15', N'テスト投稿15です。');
+
